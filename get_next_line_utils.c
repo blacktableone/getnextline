@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuzu <zuzu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nisu <nisu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 02:41:51 by zuzu              #+#    #+#             */
-/*   Updated: 2025/11/10 01:26:59 by zuzu             ###   ########.fr       */
+/*   Updated: 2026/02/20 23:06:08 by nisu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s1);
 	return (new_str);
 }
-
-
 // int	main(void)
 // {
 // 	char	*s1 = strdup("1234");

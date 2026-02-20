@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zuzu <zuzu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nisu <nisu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 21:43:36 by zuzu              #+#    #+#             */
-/*   Updated: 2025/11/10 01:38:18 by zuzu             ###   ########.fr       */
+/*   Updated: 2026/02/20 23:07:09 by nisu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*ft_extract_line(char *saved)
 	return (line);
 }
 
-
 char	*ft_save_rest(char *saved)
 {
 	char	*new_saved;
@@ -106,7 +105,6 @@ char	*get_next_line(int fd)
 	saved = ft_save_rest(saved);
 	return (line);
 }
-
 // int	main(void)
 // {
 // 	//char	*saved = NULL;
@@ -117,12 +115,10 @@ char	*get_next_line(int fd)
 // 		perror("Open failed");
 // 		return (1);
 // 	}
-
 // 	//test ft_read_and_save
 // 	saved = ft_read_and_save(fd, saved);
 // 	printf("read and save: %s\n", saved);
 // 	free(saved);
-
 // 	char	*line = NULL;
 // 	//test ft_extract_line
 // 	saved = ft_read_and_save(fd, saved);
@@ -130,7 +126,6 @@ char	*get_next_line(int fd)
 // 	printf("line: %s\n", line);
 // 	free(saved);
 // 	free(line);
-
 // 	//test ft_save_rest
 // 	saved = ft_read_and_save(fd, saved);
 // 	line = ft_extract_line(saved);
@@ -138,14 +133,11 @@ char	*get_next_line(int fd)
 // 	printf("save rest: %s\n", saved);
 // 	free(saved);
 // 	free(line);
-
-
 // 	while ((line = get_next_line(fd)) != NULL)
 // 	{
 // 		printf("get_next_line: %s", line);
 // 		free(line); // what time need to use free?
 // 	}
-
 // 	close(fd);
 // 	return (0);
 // }
