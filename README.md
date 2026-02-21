@@ -35,24 +35,53 @@ After extracting the line, ft_save_rest creates a new string containing everythi
 **Compile with a custom BUFFER_SIZE using the -D flag:**
 ```shell
 cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c -o gnl
+./gnl
 ```
 
-**To test with a different buffer size:**
+**To test:**
+make txt file:
 ```shell
-cc -Wall -Wextra -Werror -D BUFFER_SIZE=1 get_next_line.c get_next_line_utils.c -o gnl
+printf "\n\n\n" > filename.txt
+```
+verfy the file:
+```shell
+cat -e filename.txt
 ```
 
 Usage Example
+make main.c for testing:
 ```c
-int fd = open("file.txt", O_RDONLY);
-char *line;
-while ((line = get_next_line(fd)) != NULL)
+#include <stdio.h>    // For printf
+#include <fcntl.h>    // For open() and O_RDONLY
+#include <stdlib.h>   // For free()
+#include "get_next_line.h"
+
+int main(void)
 {
-    printf("%s", line);
-    free(line);
+    int     fd;
+    char    *line;
+    int     count = 1;
+
+    fd = open("only_nl.txt", O_RDONLY);
+    if (fd < 0)
+        return (1);
+
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("Line %d: [%s]\n", count, line);
+        free(line);
+        count++;
+    }
+    printf("Line %d: [%s] (End of File)\n", count, line);
+    close(fd);
+    return (0);
 }
-close(fd);
 ```
+
+```shell
+cc -Wall -Wextra -Werror -D BUFFER_SIZE=1 get_next_line.c get_next_line_utils.c main.c -o gnl
+```
+
 
 **Important: always free the returned line after each call. The caller owns the memory.**
 
