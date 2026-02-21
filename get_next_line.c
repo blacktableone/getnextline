@@ -6,7 +6,7 @@
 /*   By: nisu <nisu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 21:43:36 by zuzu              #+#    #+#             */
-/*   Updated: 2026/02/20 23:07:09 by nisu             ###   ########.fr       */
+/*   Updated: 2026/02/21 16:40:42 by nisu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,18 @@ char	*ft_save_rest(char *saved)
 		free(saved);
 		return (NULL);
 	}
-	new_saved = (char *)malloc(ft_strlen(saved) - i);
+	i++;
+	if (!saved[i])
+	{
+		free(saved);
+		return (NULL);
+	}
+	new_saved = (char *)malloc(ft_strlen(saved) - i + 1);
 	if (!new_saved)
 	{
 		free(saved);
 		return (NULL);
 	}
-	i++;
 	j = 0;
 	while (saved[i])
 		new_saved[j++] = saved[i++];
