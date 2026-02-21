@@ -6,7 +6,7 @@
 /*   By: nisu <nisu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 21:43:36 by zuzu              #+#    #+#             */
-/*   Updated: 2026/02/21 16:40:42 by nisu             ###   ########.fr       */
+/*   Updated: 2026/02/21 19:35:21 by nisu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ char	*ft_read_and_save(int fd, char *saved)
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
+	{
+		free(saved);
 		return (NULL);
+	}
 	bytes_read = 1;
-	while (!ft_strchr(saved, '\n') && bytes_read != 0)
+	while (!(saved && ft_strchr(saved, '\n')) && bytes_read != 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
@@ -32,6 +35,11 @@ char	*ft_read_and_save(int fd, char *saved)
 		}
 		buffer[bytes_read] = '\0';
 		saved = ft_strjoin(saved, buffer);
+		if (!saved)
+		{
+			free(buffer);
+			return (NULL);
+		}
 	}
 	free(buffer);
 	return (saved);
@@ -71,23 +79,18 @@ char	*ft_save_rest(char *saved)
 	i = 0;
 	while (saved[i] && saved[i] != '\n')
 		i++;
-	if (!saved[i])
+	if (!saved[i] || !saved[i + 1])
 	{
 		free(saved);
 		return (NULL);
 	}
-	i++;
-	if (!saved[i])
-	{
-		free(saved);
-		return (NULL);
-	}
-	new_saved = (char *)malloc(ft_strlen(saved) - i + 1);
+	new_saved = (char *)malloc(ft_strlen(saved) - i);
 	if (!new_saved)
 	{
 		free(saved);
 		return (NULL);
 	}
+	i++;
 	j = 0;
 	while (saved[i])
 		new_saved[j++] = saved[i++];
@@ -107,9 +110,35 @@ char	*get_next_line(int fd)
 	if (!saved)
 		return (NULL);
 	line = ft_extract_line(saved);
+	if (!line)
+	{
+		free(saved);
+		saved = NULL;
+		return (NULL);
+	}
 	saved = ft_save_rest(saved);
 	return (line);
 }
+// static char	*ft_strdup(const char *s)
+// {
+// 	char	*new;
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (s[i])
+// 		i++;
+// 	new = (char *)malloc(i + 1);
+// 	if (!new)
+// 		return (NULL);
+// 	i = 0;
+// 	while (s[i])
+// 	{
+// 		new[i] = s[i];
+// 		i++;
+// 	}
+// 	new[i] = '\0';
+// 	return (new);
+// }
 // int	main(void)
 // {
 // 	//char	*saved = NULL;
