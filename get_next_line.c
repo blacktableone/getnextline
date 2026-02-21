@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nisu <nisu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zuzu <zuzu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 21:43:36 by zuzu              #+#    #+#             */
-/*   Updated: 2026/02/21 19:35:21 by nisu             ###   ########.fr       */
+/*   Updated: 2026/02/21 20:00:34 by zuzu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,21 @@ char	*ft_read_and_save(int fd, char *saved)
 	int		bytes_read;
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-	{
-		free(saved);
-		return (NULL);
-	}
 	bytes_read = 1;
-	while (!(saved && ft_strchr(saved, '\n')) && bytes_read != 0)
+	while (buffer && !ft_strchr(saved, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-		{
-			free(buffer);
-			free(saved);
-			return (NULL);
-		}
+		if (bytes_read <= 0)
+			break ;
 		buffer[bytes_read] = '\0';
 		saved = ft_strjoin(saved, buffer);
 		if (!saved)
-		{
-			free(buffer);
-			return (NULL);
-		}
+			break ;
+	}
+	if (!buffer || bytes_read == -1)
+	{
+		free(saved);
+		saved = NULL;
 	}
 	free(buffer);
 	return (saved);
@@ -119,26 +112,6 @@ char	*get_next_line(int fd)
 	saved = ft_save_rest(saved);
 	return (line);
 }
-// static char	*ft_strdup(const char *s)
-// {
-// 	char	*new;
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	new = (char *)malloc(i + 1);
-// 	if (!new)
-// 		return (NULL);
-// 	i = 0;
-// 	while (s[i])
-// 	{
-// 		new[i] = s[i];
-// 		i++;
-// 	}
-// 	new[i] = '\0';
-// 	return (new);
-// }
 // int	main(void)
 // {
 // 	//char	*saved = NULL;
