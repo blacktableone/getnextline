@@ -100,7 +100,6 @@ int main(void)
 ```
 
 ### Compilation
-**Compile with a custom BUFFER_SIZE using the -D flag:**
 Compile the code with the `-D BUFFER_SIZE=n` flag, where `n` is the number of bytes read at a time.
 ```bash
 # Compile the code (change the value of BUFFER_SIZE, such as 1, 10, 42, 9999)
